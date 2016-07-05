@@ -11,6 +11,10 @@ angular.module('ja-zconnect-widget-user', ['adf.provider', 'ngZconnected'])
                 }]
             }
         }
+            var widgetConfig = {
+        height: 225
+    };
+
         dashboardProvider
             .widget('profile', angular.extend({
                 title: 'Personal Information',
