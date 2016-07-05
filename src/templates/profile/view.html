@@ -1,0 +1,22 @@
+<div>
+	<img ng-src="{{profile.currentUser.avatar}}">
+</div>
+<div>
+<span data-ng-bind="profile.currentUser.first_name"></span>
+<span data-ng-bind="profile.currentUser.last_name"></span>
+</div>
+<div>
+<span data-ng-bind="profile.jobseekerInfo.quote"></span>
+</div>
+<div>
+<span data-ng-bind="(profile.currentUser.gender==='M') ? 'Male' : 'Female'  "></span>
+</div>
+<div>
+<span data-ng-bind="profile.currentUser.birthdate"></span>
+</div>
+<div>
+<span data-ng-bind="profile.jobseekerInfo.nationality"></span>
+</div>
+<div>
+<span data-ng-bind="profile.jobseekerInfo.civil_status"></span>
+</div>
