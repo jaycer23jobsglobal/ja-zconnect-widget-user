@@ -1,0 +1,36 @@
+<div id="suggestedUsers" data-ng-controller="SuggestedPeopleCtrl as vm" data-ng-init="vm.init()">
+	<div class="col-sm-12 col-xs-12">
+    	<div class="row">
+            <ul class="suggested_contacts">
+                <li data-ng-if="vm.suggestedUsers.length > 0" data-ng-repeat="user in vm.suggestedUsers | limitTo: vm.limit">
+                    <div class="col-sm-12 col-xs-12">
+                        <div class="row">
+                            
+                                <div class="col-lg-2 col-sm-2 col-xs-2">
+                                    <div class="row">
+                                        <a data-ng-href="{{user.profile_url}}">
+                                            <img data-ng-src="{{user.avatar}}">
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col-lg-10 col-sm-10 col-xs-10">
+                                    <div class="row">
+                                        <a data-ng-href="{{user.profile_url}}"><p class="contact_name" data-ng-bind="user.first_name + ' ' + user.last_name"></p></a>
+                                        <div class="col-sm-12 col-xs-12">
+                                            <div class="row">
+                                                <a href="javascript:" data-ng-click="vm.addUser(user.user_id, $index)" class="connect_skip">Connect</a>
+                                                <a href="javascript:" data-ng-click="vm.skipUser($index)" class="connect_skip">Skip</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                </li>
+                <li style="background:none; padding:0 !important; margin:0; border:none;" data-ng-if="vm.suggestedUsers.length==0">
+                    <p class="no_suggestion_p">No suggestions at the moment.</p>
+                </li>
+            </ul>
+        </div>
+	</div>
+</div>

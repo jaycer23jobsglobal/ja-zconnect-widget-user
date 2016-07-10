@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('ja-zconnect-widget-user', ['adf.provider', 'ngZconnected'])
+angular.module('ja-zconnect-widget-user', ['adf.provider', 'ngZconnected', 'ngJoms'])
     .config(function(dashboardProvider) {
         var baseTemplatePath = '{widgetsPath}/ja-zconnect-widget-user/src/templates/';
         var config = {
@@ -58,5 +58,26 @@ angular.module('ja-zconnect-widget-user', ['adf.provider', 'ngZconnected'])
                 templateUrl: baseTemplatePath + 'profile/account.html',
                 controller: 'ProfileCtrl',
                 controllerAs: 'profile'
+            }, config))
+            .widget('cfriend', angular.extend({
+                title: 'Total Zconnections',
+                description: 'total zconnections widget',
+                templateUrl: baseTemplatePath + 'znetwork/cfriend.html',
+                controller: 'ZconnectionsCtrl',
+                controllerAs: 'znetwork'
+            }, config))
+            .widget('friends', angular.extend({
+                title: 'Zconnections',
+                description: 'zconnections widget',
+                templateUrl: baseTemplatePath + 'znetwork/friends.html',
+                controller: 'ZconnectionsCtrl',
+                controllerAs: 'znetwork'
+            }, config))
+            .widget('zconnectionlist', angular.extend({
+                title: 'Add Contacts',
+                description: 'contacts widget',
+                templateUrl: baseTemplatePath + 'znetwork/friends.html',
+                controller: 'ZconnectionsListCtrl',
+                controllerAs: 'suggestedUsers'
             }, config));
     });

@@ -46,7 +46,7 @@
     <script type="text/javascript">
     angular
         .module('adfWidgetSample', ['adf', 'ja-zconnect-widget-user', 'LocalStorageModule', 'ngZconnected', 'ui.router'])
-        .config(function(dashboardProvider, localStorageServiceProvider, ngZconnectedProvider, $stateProvider, $urlRouterProvider, httpRequestInterceptorProvider) {
+        .config(function(dashboardProvider, localStorageServiceProvider, ngZconnectedProvider, $stateProvider, $urlRouterProvider, authenticationInterceptorProvider) {
 
             localStorageServiceProvider.setPrefix('ja-zconnect-widget-user');
             ngZconnectedProvider.setApiUrl('//jobsglobal.dev/api/v1');
@@ -70,13 +70,13 @@
                     }]
                 }, {
                     columns: [{
-                        styleClass: 'col-md-3',
+                        styleClass: 'col-md-6',
                         widgets: [{
                             type: 'contact',
                             config: widgetConfig
                         }]
                     }, {
-                        styleClass: 'col-md-6',
+                        styleClass: 'col-md-3',
                         widgets: [{
                             type: 'view',
                             config: widgetConfig
@@ -103,7 +103,7 @@
                     controller: 'loginController'
                 });
 
-            httpRequestInterceptorProvider.error(['$location', function($location) {
+            authenticationInterceptorProvider.error(['$location', function($location) {
                 $location.path('/login');
             }]);
         })

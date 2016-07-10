@@ -1,0 +1,9 @@
+<div>
+	<ul>
+		<li data-ng-repeat="friend in znetwork.znetwork">
+			<span><img ng-src="{{friend.avatar}}"></span>
+			<span data-ng-bind="friend.first_name + ' ' + friend.last_name"></span>
+		</li>
+	</ul>
+	<uib-pagination total-items="znetwork.total" ng-model="znetwork.page" max-size="5" class="pagination-sm" boundary-link-numbers="true" data-ng-change="znetwork.paginationChanged(znetwork.currentUser, znetwork.limit, znetwork.page)"></uib-pagination>
+</div>
