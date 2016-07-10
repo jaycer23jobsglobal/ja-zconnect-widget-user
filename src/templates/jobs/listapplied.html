@@ -1,0 +1,12 @@
+<div>
+	<ul>
+		<li data-ng-repeat="applieds in applied.appliedjobs">
+			<span><img ng-src="{{applieds.job.image_url}}"></span>
+			<span data-ng-bind="applieds.job.job_title"></span>
+			<span data-ng-bind="applieds.job.job_group.country"></span>
+			<span data-ng-bind="applieds.job.job_group.industry"></span>
+			<span data-ng-bind="applieds.date_applied"></span>
+		</li>
+	</ul>
+	<uib-pagination total-items="applied.total" ng-model="applied.page" max-size="5" class="pagination-sm" boundary-link-numbers="true" data-ng-change="applied.paginationChanged(applied.currentUser, applied.limit, applied.page)"></uib-pagination>
+</div>

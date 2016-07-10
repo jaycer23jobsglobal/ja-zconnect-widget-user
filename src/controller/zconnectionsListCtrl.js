@@ -1,13 +1,10 @@
-angular.module('ja-zconnect-widget-user').controller('ZconnectionsListCtrl', ['currentUser', '$q', 'ngZconnected', 'userService', 'ngJoms', function(currentUser, $q, ngZconnected, userService, ngJoms) {
+angular.module('ja-zconnect-widget-user').controller('ZconnectionsListCtrl', ['currentUser', '$q', 'ngZconnected', 'userService', function(currentUser, $q, ngZconnected, userService) {
     var vm = this;
     vm.suggestedUsers = [];
     vm.page = 1;
     vm.limit = 3;
     vm.total = 0;
     vm.totalFetched = 0;
-    vm.init = function() {
-        vm.getSuggestedPeople(vm.limit, vm.page)
-    };
     vm.getSuggestedPeople = function(limit, page) {
         userService.getCurrentUserSuggestedUsers(limit, page).then(function(resp) {
             vm.totalFetched += resp.data.length;
@@ -28,6 +25,8 @@ angular.module('ja-zconnect-widget-user').controller('ZconnectionsListCtrl', ['c
         ngJoms.api.friendAdd(userId)
         vm.skipUser(index);
     }
+
+    vm.getSuggestedPeople(vm.limit, vm.page);
 }]);
 angular.element(document).ready(function() {
     angular.bootstrap(document.getElementById('suggestedUsers'), ['ja-zconnect-widget-user']);

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('ja-zconnect-widget-user', ['adf.provider', 'ngZconnected', 'ngJoms'])
+angular.module('ja-zconnect-widget-user', ['adf.provider', 'ngZconnected'])
     .config(function(dashboardProvider) {
         var baseTemplatePath = '{widgetsPath}/ja-zconnect-widget-user/src/templates/';
         var config = {
@@ -74,10 +74,31 @@ angular.module('ja-zconnect-widget-user', ['adf.provider', 'ngZconnected', 'ngJo
                 controllerAs: 'znetwork'
             }, config))
             .widget('zconnectionlist', angular.extend({
-                title: 'Add Contacts',
+                title: 'People You May Know',
                 description: 'contacts widget',
-                templateUrl: baseTemplatePath + 'znetwork/friends.html',
+                templateUrl: baseTemplatePath + 'znetwork/userlist.html',
                 controller: 'ZconnectionsListCtrl',
                 controllerAs: 'suggestedUsers'
+            }, config))
+            .widget('appliedjobs', angular.extend({
+                title: 'Total Applied Jobs',
+                description: 'applied widget',
+                templateUrl: baseTemplatePath + 'jobs/capplied.html',
+                controller: 'AppliedCtrl',
+                controllerAs: 'applied'
+            }, config))
+            .widget('listappliedjobs', angular.extend({
+                title: 'Applied Jobs',
+                description: 'applied widget',
+                templateUrl: baseTemplatePath + 'jobs/listapplied.html',
+                controller: 'AppliedCtrl',
+                controllerAs: 'applied'
+            }, config))
+            .widget('savedjobs', angular.extend({
+                title: 'Total Saved Jobs',
+                description: 'saved widget',
+                templateUrl: baseTemplatePath + 'jobs/csaved.html',
+                controller: 'SavedCtrl',
+                controllerAs: 'saved'
             }, config));
     });

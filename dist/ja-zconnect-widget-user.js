@@ -1,7 +1,7 @@
 (function(window, undefined) {'use strict';
 
 
-angular.module('ja-zconnect-widget-user', ['adf.provider', 'ngZconnected', 'ngJoms'])
+angular.module('ja-zconnect-widget-user', ['adf.provider', 'ngZconnected'])
     .config(["dashboardProvider", function(dashboardProvider) {
         var baseTemplatePath = '{widgetsPath}/ja-zconnect-widget-user/src/templates/';
         var config = {
@@ -75,15 +75,39 @@ angular.module('ja-zconnect-widget-user', ['adf.provider', 'ngZconnected', 'ngJo
                 controllerAs: 'znetwork'
             }, config))
             .widget('zconnectionlist', angular.extend({
-                title: 'Add Contacts',
+                title: 'People You May Know',
                 description: 'contacts widget',
-                templateUrl: baseTemplatePath + 'znetwork/friends.html',
+                templateUrl: baseTemplatePath + 'znetwork/userlist.html',
                 controller: 'ZconnectionsListCtrl',
                 controllerAs: 'suggestedUsers'
+            }, config))
+            .widget('appliedjobs', angular.extend({
+                title: 'Total Applied Jobs',
+                description: 'applied widget',
+                templateUrl: baseTemplatePath + 'jobs/capplied.html',
+                controller: 'AppliedCtrl',
+                controllerAs: 'applied'
+            }, config))
+            .widget('listappliedjobs', angular.extend({
+                title: 'Applied Jobs',
+                description: 'applied widget',
+                templateUrl: baseTemplatePath + 'jobs/listapplied.html',
+                controller: 'AppliedCtrl',
+                controllerAs: 'applied'
+            }, config))
+            .widget('savedjobs', angular.extend({
+                title: 'Total Saved Jobs',
+                description: 'saved widget',
+                templateUrl: baseTemplatePath + 'jobs/csaved.html',
+                controller: 'SavedCtrl',
+                controllerAs: 'saved'
             }, config));
     }]);
 
-angular.module("ja-zconnect-widget-user").run(["$templateCache", function($templateCache) {$templateCache.put("{widgetsPath}/ja-zconnect-widget-user/src/templates/profile/account.html","<div>Username : <span data-ng-bind=profile.currentUser.email></span></div><div>Password : <span>******************</span> <a href=#>Edit</a></div>");
+angular.module("ja-zconnect-widget-user").run(["$templateCache", function($templateCache) {$templateCache.put("{widgetsPath}/ja-zconnect-widget-user/src/templates/jobs/capplied.html","<div><center><h1 data-ng-show=applied.total data-ng-bind=applied.total></h1><center></center></center></div>");
+$templateCache.put("{widgetsPath}/ja-zconnect-widget-user/src/templates/jobs/csaved.html","<div><center><h1 data-ng-show=saved.total data-ng-bind=saved.total></h1><center></center></center></div>");
+$templateCache.put("{widgetsPath}/ja-zconnect-widget-user/src/templates/jobs/listapplied.html","<div><ul><li data-ng-repeat=\"applieds in applied.appliedjobs\"><span><img ng-src={{applieds.job.image_url}}></span> <span data-ng-bind=applieds.job.job_title></span> <span data-ng-bind=applieds.job.job_group.country></span> <span data-ng-bind=applieds.job.job_group.industry></span> <span data-ng-bind=applieds.date_applied></span></li></ul><uib-pagination total-items=applied.total ng-model=applied.page max-size=5 class=pagination-sm boundary-link-numbers=true data-ng-change=\"applied.paginationChanged(applied.currentUser, applied.limit, applied.page)\"></uib-pagination></div>");
+$templateCache.put("{widgetsPath}/ja-zconnect-widget-user/src/templates/profile/account.html","<div>Username : <span data-ng-bind=profile.currentUser.email></span></div><div>Password : <span>******************</span> <a href=#>Edit</a></div>");
 $templateCache.put("{widgetsPath}/ja-zconnect-widget-user/src/templates/profile/contact.html","<div><span data-ng-bind=profile.currentUser.email></span></div><div><span data-ng-bind=profile.currentUser.address.address_1></span> <span data-ng-bind=profile.currentUser.address.address_2></span> <span data-ng-bind=profile.currentUser.address.country></span> <span data-ng-bind=profile.currentUser.address.postal_zip></span></div><div>+<span data-ng-bind=profile.contacts.country_code></span><span data-ng-bind=profile.contacts.phone_number></span></div>");
 $templateCache.put("{widgetsPath}/ja-zconnect-widget-user/src/templates/profile/edit.html","<form role=form><div class=form-group><label for=sample>Sample</label> <input type=text class=form-control id=sample ng-model=config.sample placeholder=\"Enter sample\"></div></form>");
 $templateCache.put("{widgetsPath}/ja-zconnect-widget-user/src/templates/profile/strength.html","<div><center><h1 data-ng-show=profile.strength.percentage data-ng-bind=\"(profile.strength.percentage*100).toFixed(1) + \' %\'\"></h1><center></center></center></div>");
@@ -91,17 +115,14 @@ $templateCache.put("{widgetsPath}/ja-zconnect-widget-user/src/templates/profile/
 $templateCache.put("{widgetsPath}/ja-zconnect-widget-user/src/templates/profile/views.html","<div><center><h1 data-ng-show=profile.views.total data-ng-bind=profile.views.total></h1><center></center></center></div>");
 $templateCache.put("{widgetsPath}/ja-zconnect-widget-user/src/templates/znetwork/cfriend.html","<div><center><h1 data-ng-show=znetwork.total data-ng-bind=znetwork.total></h1><center></center></center></div>");
 $templateCache.put("{widgetsPath}/ja-zconnect-widget-user/src/templates/znetwork/friends.html","<div><ul><li data-ng-repeat=\"friend in znetwork.znetwork\"><span><img ng-src={{friend.avatar}}></span> <span data-ng-bind=\"friend.first_name + \' \' + friend.last_name\"></span></li></ul><uib-pagination total-items=znetwork.total ng-model=znetwork.page max-size=5 class=pagination-sm boundary-link-numbers=true data-ng-change=\"znetwork.paginationChanged(znetwork.currentUser, znetwork.limit, znetwork.page)\"></uib-pagination></div>");
-$templateCache.put("{widgetsPath}/ja-zconnect-widget-user/src/templates/znetwork/userlist.html","<div id=suggestedUsers data-ng-controller=\"SuggestedPeopleCtrl as vm\" data-ng-init=vm.init()><div class=\"col-sm-12 col-xs-12\"><div class=row><ul class=suggested_contacts><li data-ng-if=\"vm.suggestedUsers.length > 0\" data-ng-repeat=\"user in vm.suggestedUsers | limitTo: vm.limit\"><div class=\"col-sm-12 col-xs-12\"><div class=row><div class=\"col-lg-2 col-sm-2 col-xs-2\"><div class=row><a data-ng-href={{user.profile_url}}><img data-ng-src={{user.avatar}}></a></div></div><div class=\"col-lg-10 col-sm-10 col-xs-10\"><div class=row><a data-ng-href={{user.profile_url}}><p class=contact_name data-ng-bind=\"user.first_name + \' \' + user.last_name\"></p></a><div class=\"col-sm-12 col-xs-12\"><div class=row><a href=javascript: data-ng-click=\"vm.addUser(user.user_id, $index)\" class=connect_skip>Connect</a> <a href=javascript: data-ng-click=vm.skipUser($index) class=connect_skip>Skip</a></div></div></div></div></div></div></li><li style=\"background:none; padding:0 !important; margin:0; border:none;\" data-ng-if=\"vm.suggestedUsers.length==0\"><p class=no_suggestion_p>No suggestions at the moment.</p></li></ul></div></div></div>");}]);
-angular.module('ja-zconnect-widget-user').controller('ZconnectionsListCtrl', ['currentUser', '$q', 'ngZconnected', 'userService', 'ngJoms', function(currentUser, $q, ngZconnected, userService, ngJoms) {
+$templateCache.put("{widgetsPath}/ja-zconnect-widget-user/src/templates/znetwork/userlist.html","<div><div class=\"col-sm-12 col-xs-12\"><div class=row><ul class=suggested_contacts><li data-ng-if=\"suggestedUsers.suggestedUsers.length > 0\" data-ng-repeat=\"user in suggestedUsers.suggestedUsers | limitTo: limit\"><div class=\"col-sm-12 col-xs-12\"><div class=row><div class=\"col-lg-2 col-sm-2 col-xs-2\"><div class=row><a data-ng-href={{user.profile_url}}><img data-ng-src={{user.avatar}}></a></div></div><div class=\"col-lg-10 col-sm-10 col-xs-10\"><div class=row><a data-ng-href={{user.profile_url}}><p class=contact_name data-ng-bind=\"user.first_name + \' \' + user.last_name\"></p></a><div class=\"col-sm-12 col-xs-12\"><div class=row><a href=javascript: data-ng-click=\"suggestedUsers.addUser(user.user_id, $index)\" class=connect_skip>Connect</a> <a href=javascript: data-ng-click=suggestedUsers.skipUser($index) class=connect_skip>Skip</a></div></div></div></div></div></div></li><li style=\"background:none; padding:0 !important; margin:0; border:none;\" data-ng-if=\"suggestedUsers.suggestedUsers.length==0\"><p class=no_suggestion_p>No suggestions at the moment.</p></li></ul></div></div></div>");}]);
+angular.module('ja-zconnect-widget-user').controller('ZconnectionsListCtrl', ['currentUser', '$q', 'ngZconnected', 'userService', function(currentUser, $q, ngZconnected, userService) {
     var vm = this;
     vm.suggestedUsers = [];
     vm.page = 1;
     vm.limit = 3;
     vm.total = 0;
     vm.totalFetched = 0;
-    vm.init = function() {
-        vm.getSuggestedPeople(vm.limit, vm.page)
-    };
     vm.getSuggestedPeople = function(limit, page) {
         userService.getCurrentUserSuggestedUsers(limit, page).then(function(resp) {
             vm.totalFetched += resp.data.length;
@@ -122,6 +143,8 @@ angular.module('ja-zconnect-widget-user').controller('ZconnectionsListCtrl', ['c
         ngJoms.api.friendAdd(userId)
         vm.skipUser(index);
     }
+
+    vm.getSuggestedPeople(vm.limit, vm.page);
 }]);
 angular.element(document).ready(function() {
     angular.bootstrap(document.getElementById('suggestedUsers'), ['ja-zconnect-widget-user']);
@@ -145,6 +168,30 @@ angular.module('ja-zconnect-widget-user')
                     if (ngZconnected._DEBUG)
                         console.log(error);
                 });
+        }
+        vm.paginationChanged(vm.currentUser, vm.limit, vm.page);
+    }]);
+
+angular.module('ja-zconnect-widget-user')
+    .controller('SavedCtrl', ['currentUser', '$q', 'ngZconnected', 'jobService', function(currentUser, $q, ngZconnected, jobService) {
+        var vm = this;
+        vm.currentUser = currentUser;
+        vm.savedjobs = {};
+        vm.total = {};
+        vm.limit = 10;
+        vm.page = 1;
+
+        vm.paginationChanged = function(currentUser, limit, page) {
+            $q.when(jobService.user.getSaved(currentUser.user_id, limit, page))
+            .then(function(saved) {
+                if (ngZconnected._DEBUG)
+                    console.log(saved);
+                vm.savedjobs = saved.data;
+                vm.total = saved.total;
+            }, function(error) {
+                if (ngZconnected._DEBUG)
+                    console.log(error);
+            });
         }
         vm.paginationChanged(vm.currentUser, vm.limit, vm.page);
     }]);
@@ -217,4 +264,28 @@ angular.module('ja-zconnect-widget-user')
     }]);
 
 
+
+angular.module('ja-zconnect-widget-user')
+    .controller('AppliedCtrl', ['currentUser', '$q', 'ngZconnected', 'jobService', function(currentUser, $q, ngZconnected, jobService) {
+        var vm = this;
+        vm.currentUser = currentUser;
+        vm.appliedjobs = {};
+        vm.total = {};
+        vm.limit = 10;
+        vm.page = 1;
+
+        vm.paginationChanged = function(currentUser, limit, page) {
+            $q.when(jobService.user.getApplied(currentUser.user_id, limit, page))
+            .then(function(applied) {
+                if (ngZconnected._DEBUG)
+                    console.log(applied);
+                vm.appliedjobs = applied.data;
+                vm.total = applied.total;
+            }, function(error) {
+                if (ngZconnected._DEBUG)
+                    console.log(error);
+            });
+        }
+        vm.paginationChanged(vm.currentUser, vm.limit, vm.page);
+    }]);
 })(window);
