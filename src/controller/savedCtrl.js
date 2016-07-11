@@ -3,7 +3,7 @@ angular.module('ja-zconnect-widget-user')
         var vm = this;
         vm.currentUser = currentUser;
         vm.savedjobs = {};
-        vm.total = {};
+        vm.total;
         vm.limit = 10;
         vm.page = 1;
 

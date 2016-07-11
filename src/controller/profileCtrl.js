@@ -8,6 +8,7 @@ angular.module('ja-zconnect-widget-user')
         vm.address = {};
         vm.strength = {};
         vm.views = {};
+        vm.total;
 
         $q.when(profileService.jobseekerInfo.get(vm.currentUser.user_id))
             .then(function(jobseekerInfo) {
@@ -27,7 +28,7 @@ angular.module('ja-zconnect-widget-user')
             .then(function(contacts) {
                 if (ngZconnected._DEBUG)
                     console.log(contacts);
-                vm.contacts = contacts
+                vm.contacts = contacts;
             }, function(error) {
                 if (ngZconnected._DEBUG)
                     console.log(error);
@@ -38,7 +39,7 @@ angular.module('ja-zconnect-widget-user')
             .then(function(strength){
                 if (ngZconnected._DEBUG)
                     console.log(strength);
-                vm.strength = strength
+                vm.strength = strength;
             }, function(error) {
                 if (ngZconnected._DEBUG)
                     console.log(error);
@@ -49,16 +50,8 @@ angular.module('ja-zconnect-widget-user')
             .then(function(views){
                 if (ngZconnected._DEBUG)
                     console.log(views);
-                vm.views = views
-            }, function(error) {
-                if (ngZconnected._DEBUG)
-                    console.log(error);
-            });
-        jobService.user.getApplied(vm.currentUser.user_id)
-            .then(function(applied) {
-                if (ngZconnected._DEBUG)
-                    console.log(applied);
-                vm.appliedjobs
+                vm.views = views.data;
+                vm.total = views.total;
             }, function(error) {
                 if (ngZconnected._DEBUG)
                     console.log(error);

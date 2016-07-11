@@ -1,12 +1,15 @@
 <div>
 	<ul>
-		<li data-ng-repeat="applieds in applied.appliedjobs">
+		<li data-ng-if="applied.total > 0" data-ng-repeat="applieds in applied.appliedjobs">
 			<span><img ng-src="{{applieds.job.image_url}}"></span>
 			<span data-ng-bind="applieds.job.job_title"></span>
 			<span data-ng-bind="applieds.job.job_group.country"></span>
 			<span data-ng-bind="applieds.job.job_group.industry"></span>
 			<span data-ng-bind="applieds.date_applied"></span>
 		</li>
+		<li data-ng-if="applied.total==0">
+            <p class="no_suggestion_p">No Applied Jobs at the moment.</p>
+        </li>
 	</ul>
-	<uib-pagination total-items="applied.total" ng-model="applied.page" max-size="5" class="pagination-sm" boundary-link-numbers="true" data-ng-change="applied.paginationChanged(applied.currentUser, applied.limit, applied.page)"></uib-pagination>
+	<uib-pagination data-ng-if="applied.total > 0" total-items="applied.total" ng-model="applied.page" max-size="5" class="pagination-sm" boundary-link-numbers="true" data-ng-change="applied.paginationChanged(applied.currentUser, applied.limit, applied.page)"></uib-pagination>
 </div>

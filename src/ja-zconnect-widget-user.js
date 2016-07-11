@@ -100,5 +100,40 @@ angular.module('ja-zconnect-widget-user', ['adf.provider', 'ngZconnected'])
                 templateUrl: baseTemplatePath + 'jobs/csaved.html',
                 controller: 'SavedCtrl',
                 controllerAs: 'saved'
+            }, config))
+            .widget('listsavedjobs', angular.extend({
+                title: 'Saved Jobs',
+                description: 'saved widget',
+                templateUrl: baseTemplatePath + 'jobs/listsaved.html',
+                controller: 'SavedCtrl',
+                controllerAs: 'saved'
+            }, config))
+            .widget('recommendedjobs', angular.extend({
+                title: 'Total Recommended Jobs',
+                description: 'recommended widget',
+                templateUrl: baseTemplatePath + 'jobs/crecommended.html',
+                controller: 'RecommendedCtrl',
+                controllerAs: 'recommended'
+            }, config))
+            .widget('listrecommendedjobs', angular.extend({
+                title: 'Recommended Jobs',
+                description: 'recommended widget',
+                templateUrl: baseTemplatePath + 'jobs/listrecommended.html',
+                controller: 'RecommendedCtrl',
+                controllerAs: 'recommended'
+            }, config))
+            .widget('listjoblist', angular.extend({
+                title: 'Latest Jobs',
+                description: 'jobs widget',
+                templateUrl: baseTemplatePath + 'jobs/listjobs.html',
+                controller: 'JobsearchCtrl',
+                controllerAs: 'job'
+            }, config))
+            .widget('joblist', angular.extend({
+                title: 'Total Latest Jobs',
+                description: 'latest jobs widget',
+                templateUrl: baseTemplatePath + 'jobs/cjobs.html',
+                controller: 'JobsearchCtrl',
+                controllerAs: 'job'
             }, config));
     });

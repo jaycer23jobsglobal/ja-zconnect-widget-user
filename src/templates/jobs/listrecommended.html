@@ -1,0 +1,15 @@
+<div>
+	<ul>
+		<li data-ng-if="recommended.total > 0" data-ng-repeat="recommendeds in recommended.appliedjobs">
+			<span><img ng-src="{{recommendeds.job.image_url}}"></span>
+			<span data-ng-bind="recommendeds.job.job_title"></span>
+			<span data-ng-bind="recommendeds.job.job_group.country"></span>
+			<span data-ng-bind="recommendeds.job.job_group.industry"></span>
+			<span data-ng-bind="recommendeds.date_applied"></span>
+		</li>
+		<li data-ng-if="recommended.total==0">
+            <p class="no_suggestion_p">No Recommended Jobs at the moment.</p>
+        </li>
+	</ul>
+	<uib-pagination data-ng-if="recommended.total > 0" total-items="recommended.total" ng-model="recommended.page" max-size="5" class="pagination-sm" boundary-link-numbers="true" data-ng-change="recommended.paginationChanged(recommended.currentUser, recommended.limit, recommended.page)"></uib-pagination>
+</div>
