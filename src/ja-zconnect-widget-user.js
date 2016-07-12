@@ -184,5 +184,12 @@ angular.module('ja-zconnect-widget-user', ['adf.provider', 'ngZconnected'])
                 templateUrl: baseTemplatePath + 'message/listmymessage.html',
                 controller: 'MessageCtrl',
                 controllerAs: 'message'
+            }, config))
+            .widget('totalmessage', angular.extend({
+                title: 'Total Message',
+                description: 'total message widget',
+                templateUrl: baseTemplatePath + 'message/cmessage.html',
+                controller: 'MessageCtrl',
+                controllerAs: 'message'
             }, config));
     });

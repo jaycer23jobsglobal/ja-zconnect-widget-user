@@ -3,7 +3,7 @@ angular.module('ja-zconnect-widget-user')
         var vm = this;
         vm.currentUser = currentUser;
         vm.eventlist = {};
-        vm.total = 0;
+        vm.total;
         vm.limit = 10;
         vm.page = 1;
         vm.paginationChanged = function(limit, page) {
