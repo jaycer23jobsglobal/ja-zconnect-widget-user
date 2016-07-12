@@ -1,14 +1,13 @@
 <form data-ng-submit="job.search(searchForm)" name="searchForm" novalidate="" data-ng-init="job.searchJobs(job.limit, job.page)">
     <div>
         <input data-ng-model="job.searchkey.search" name="search" placeholder="" type="text" />
-        <select data-ng-model="job.searchkey.country">
-        	<option data-ng-repeat="country in job.country" name="country" data-ng-bind="country.name"></option>
+        <select data-ng-model="job.searchkey.country" data-ng-options="country.nicename as country.nicename for country in job.country">
         </select>
         <input type="submit" value="Search">
     </div>
 </form>
 <div>
-    <ul data-ng-if="job.total > 0">
+    <ul data-ng-if="job.total > 0 && job.error != 1">
         <li data-ng-repeat="jobs in job.searchjobs">
             <span>
                 <img ng-src="{{jobs.image_url}}"/>
@@ -28,6 +27,11 @@
     <div data-ng-if="job.total==0">
         <p class="no_suggestion_p">
             No Jobs at the moment.
+        </p>
+    </div>
+    <div data-ng-if="job.error==1">
+        <p class="no_suggestion_p">
+            No Jobs Found.
         </p>
     </div>
 </div>

@@ -9,7 +9,8 @@ angular.module('ja-zconnect-widget-user')
         vm.limit = 10;
         vm.page = 1;
         vm.country = {};
-        
+        vm.error = 0;
+
         vm.searchJobs = function(limit, page) {
             $q.when((function() {
                     var deferred = $q.defer();
@@ -35,6 +36,7 @@ angular.module('ja-zconnect-widget-user')
                         console.log(searchjobs);
                     vm.searchjobs = searchjobs.data;
                     vm.total = searchjobs.total;
+                    vm.error = searchjobs.error;
                 })
                 .catch(function(error) {
                     if (ngZconnected._DEBUG)

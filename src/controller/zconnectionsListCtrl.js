@@ -28,6 +28,3 @@ angular.module('ja-zconnect-widget-user').controller('ZconnectionsListCtrl', ['c
 
     vm.getSuggestedPeople(vm.limit, vm.page);
 }]);
-angular.element(document).ready(function() {
-    angular.bootstrap(document.getElementById('suggestedUsers'), ['ja-zconnect-widget-user']);
-});
