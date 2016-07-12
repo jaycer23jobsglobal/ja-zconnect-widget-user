@@ -1,0 +1,13 @@
+<div>
+	<ul>
+		<li data-ng-if="groups.total > 0" data-ng-repeat="gro in groups.groupslist">
+			<span><img ng-src="/{{gro.thumb}}"></span>
+			<span data-ng-bind="gro.name"></span>
+			<span data-ng-bind="gro.date_created"></span>
+		</li>
+		<li data-ng-if="groups.total==0">
+            <p class="no_suggestion_p">No group at the moment.</p>
+        </li>
+	</ul>
+	<uib-pagination data-ng-if="groups.total > 0" total-items="groups.total" ng-model="groups.page" max-size="5" class="pagination-sm" boundary-link-numbers="true" data-ng-change="groups.paginationChanged(groups.limit, groups.page)"></uib-pagination>
+</div>

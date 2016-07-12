@@ -1,0 +1,15 @@
+<div>
+	<ul>
+		<li data-ng-if="events.total > 0" data-ng-repeat="event in events.eventlist">
+			<span><img ng-src="/{{event.avatar}}"></span>
+			<span data-ng-bind="event.title"></span>
+			<span data-ng-bind="event.location"></span>
+			<span data-ng-bind="event.startdate"></span>
+			<span data-ng-bind="event.enddate"></span>
+		</li>
+		<li data-ng-if="events.total==0">
+            <p class="no_suggestion_p">No event at the moment.</p>
+        </li>
+	</ul>
+	<uib-pagination data-ng-if="events.total > 0" total-items="events.total" ng-model="events.page" max-size="5" class="pagination-sm" boundary-link-numbers="true" data-ng-change="events.paginationChanged(events.limit, events.page)"></uib-pagination>
+</div>

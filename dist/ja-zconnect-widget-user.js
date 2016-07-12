@@ -136,10 +136,58 @@ angular.module('ja-zconnect-widget-user', ['adf.provider', 'ngZconnected'])
                 templateUrl: baseTemplatePath + 'jobs/cjobs.html',
                 controller: 'JobsearchCtrl',
                 controllerAs: 'job'
+            }, config))
+            .widget('listcompany', angular.extend({
+                title: 'Latest Companies',
+                description: 'latest company widget',
+                templateUrl: baseTemplatePath + 'company/listcompany.html',
+                controller: 'CompanyListCtrl',
+                controllerAs: 'company'
+            }, config))
+            .widget('listgroup', angular.extend({
+                title: 'Latest Groups',
+                description: 'latest group widget',
+                templateUrl: baseTemplatePath + 'group/listgroup.html',
+                controller: 'GroupListCtrl',
+                controllerAs: 'groups'
+            }, config))
+            .widget('mygroup', angular.extend({
+                title: 'My Groups',
+                description: 'my group widget',
+                templateUrl: baseTemplatePath + 'group/mygrouplist.html',
+                controller: 'MyGroupListCtrl',
+                controllerAs: 'groups'
+            }, config))
+            .widget('creategroup', angular.extend({
+                title: 'Create Group',
+                description: 'create group widget',
+                templateUrl: baseTemplatePath + 'group/creategroup.html',
+                controller: '',
+                controllerAs: 'groups'
+            }, config))
+            .widget('listevent', angular.extend({
+                title: 'Latest Events',
+                description: 'latest event widget',
+                templateUrl: baseTemplatePath + 'event/listevent.html',
+                controller: 'EventListCtrl',
+                controllerAs: 'events'
+            }, config))
+            .widget('myevent', angular.extend({
+                title: 'My Events',
+                description: 'my event widget',
+                templateUrl: baseTemplatePath + 'event/myevent.html',
+                controller: 'MyEventListCtrl',
+                controllerAs: 'events'
             }, config));
     }]);
 
-angular.module("ja-zconnect-widget-user").run(["$templateCache", function($templateCache) {$templateCache.put("{widgetsPath}/ja-zconnect-widget-user/src/templates/jobs/capplied.html","<div><center><h1 data-ng-show=\"applied.total != null\" data-ng-bind=applied.total></h1><center></center></center></div>");
+angular.module("ja-zconnect-widget-user").run(["$templateCache", function($templateCache) {$templateCache.put("{widgetsPath}/ja-zconnect-widget-user/src/templates/company/listcompany.html","<div><ul><li data-ng-if=\"company.total > 0\" data-ng-repeat=\"comp in company.companyjobs\"><span><img ng-src=/{{comp.avatar}}></span> <span data-ng-bind=comp.name></span> <span data-ng-bind=comp.address.country></span> <span data-ng-bind=comp.industry.description></span> <span data-ng-bind=comp.date_created></span></li><li data-ng-if=\"company.total==0\"><p class=no_suggestion_p>No company at the moment.</p></li></ul><uib-pagination data-ng-if=\"company.total > 0\" total-items=company.total ng-model=company.page max-size=5 class=pagination-sm boundary-link-numbers=true data-ng-change=\"company.paginationChanged(company.limit, company.page)\"></uib-pagination></div>");
+$templateCache.put("{widgetsPath}/ja-zconnect-widget-user/src/templates/event/listevent.html","<div><ul><li data-ng-if=\"events.total > 0\" data-ng-repeat=\"event in events.eventlist\"><span><img ng-src=/{{event.avatar}}></span> <span data-ng-bind=event.title></span> <span data-ng-bind=event.location></span> <span data-ng-bind=event.startdate></span> <span data-ng-bind=event.enddate></span></li><li data-ng-if=\"events.total==0\"><p class=no_suggestion_p>No event at the moment.</p></li></ul><uib-pagination data-ng-if=\"events.total > 0\" total-items=events.total ng-model=events.page max-size=5 class=pagination-sm boundary-link-numbers=true data-ng-change=\"events.paginationChanged(events.limit, events.page)\"></uib-pagination></div>");
+$templateCache.put("{widgetsPath}/ja-zconnect-widget-user/src/templates/event/myevent.html","<div><ul><li data-ng-if=\"events.total > 0\" data-ng-repeat=\"event in events.eventlist\"><span><img ng-src=/{{event.avatar}}></span> <span data-ng-bind=event.title></span> <span data-ng-bind=event.location></span> <span data-ng-bind=event.startdate></span> <span data-ng-bind=event.enddate></span></li><li data-ng-if=\"events.total==0\"><p class=no_suggestion_p>No event at the moment.</p></li></ul><uib-pagination data-ng-if=\"events.total > 0\" total-items=events.total ng-model=events.page max-size=5 class=pagination-sm boundary-link-numbers=true data-ng-change=\"events.paginationChanged(events.limit, events.page)\"></uib-pagination></div>");
+$templateCache.put("{widgetsPath}/ja-zconnect-widget-user/src/templates/group/creategroup.html","<div><center><a href=\"/index.php?option=com_community&view=groups&task=create&Itemid=672\">Create Group</a></center></div>");
+$templateCache.put("{widgetsPath}/ja-zconnect-widget-user/src/templates/group/listgroup.html","<div><ul><li data-ng-if=\"groups.total > 0\" data-ng-repeat=\"gro in groups.groupslist\"><span><img ng-src=/{{gro.thumb}}></span> <span data-ng-bind=gro.name></span> <span data-ng-bind=gro.date_created></span></li><li data-ng-if=\"groups.total==0\"><p class=no_suggestion_p>No group at the moment.</p></li></ul><uib-pagination data-ng-if=\"groups.total > 0\" total-items=groups.total ng-model=groups.page max-size=5 class=pagination-sm boundary-link-numbers=true data-ng-change=\"groups.paginationChanged(groups.limit, groups.page)\"></uib-pagination></div>");
+$templateCache.put("{widgetsPath}/ja-zconnect-widget-user/src/templates/group/mygrouplist.html","<div><ul><li data-ng-if=\"groups.total > 0\" data-ng-repeat=\"gro in groups.mygrouplist\"><div></div><span><img ng-src=/{{gro.thumb}}></span> <span data-ng-bind=gro.name></span> <span data-ng-bind=gro.created></span></li><li data-ng-if=\"groups.total==0\"><p class=no_suggestion_p>No group at the moment.</p></li></ul><uib-pagination data-ng-if=\"groups.total > 0\" total-items=groups.total ng-model=groups.page max-size=5 class=pagination-sm boundary-link-numbers=true data-ng-change=\"groups.paginationChanged(groups.limit, groups.page)\"></uib-pagination></div>");
+$templateCache.put("{widgetsPath}/ja-zconnect-widget-user/src/templates/jobs/capplied.html","<div><center><h1 data-ng-show=\"applied.total != null\" data-ng-bind=applied.total></h1><center></center></center></div>");
 $templateCache.put("{widgetsPath}/ja-zconnect-widget-user/src/templates/jobs/cjobs.html","<div><center><h1 data-ng-show=\"job.total != null\" data-ng-bind=job.total></h1><center></center></center></div>");
 $templateCache.put("{widgetsPath}/ja-zconnect-widget-user/src/templates/jobs/crecommended.html","<div><center><h1 data-ng-show=\"recommended.total != null\" data-ng-bind=recommended.total></h1><center></center></center></div>");
 $templateCache.put("{widgetsPath}/ja-zconnect-widget-user/src/templates/jobs/csaved.html","<div><center><h1 data-ng-show=\"saved.total != null\" data-ng-bind=saved.total></h1><center></center></center></div>");
@@ -320,6 +368,52 @@ angular.module('ja-zconnect-widget-user')
 
 
 angular.module('ja-zconnect-widget-user')
+    .controller('MyGroupListCtrl', ['currentUser', '$q', 'ngZconnected', 'userService', 'resourceService', function(currentUser, $q, ngZconnected, userService, resourceService) {
+        var vm = this;
+        vm.currentUser = currentUser;
+        vm.mygrouplist = {};
+        vm.total = 0;
+        vm.limit = 10;
+        vm.page = 1;
+        vm.paginationChanged = function(currentUser, limit, page) {
+            $q.when(userService.getUserGroup(currentUser.user_id, limit, page))
+                .then(function(mygroup) {
+                    if (ngZconnected._DEBUG)
+                        console.log(mygroup)
+                    vm.mygrouplist = mygroup.data;
+                    vm.total = mygroup.meta.total;
+                }, function(error) {
+                    if (ngZconnected._DEBUG)
+                        console.log(error);
+                });
+        }
+        vm.paginationChanged(vm.currentUser, vm.limit, vm.page);
+    }]);
+
+angular.module('ja-zconnect-widget-user')
+    .controller('MyEventListCtrl', ['currentUser', '$q', 'ngZconnected', 'userService', 'resourceService', function(currentUser, $q, ngZconnected, userService, resourceService) {
+        var vm = this;
+        vm.currentUser = currentUser;
+        vm.eventlist = {};
+        vm.total = 0;
+        vm.limit = 10;
+        vm.page = 1;
+        vm.paginationChanged = function(currentUser, limit, page) {
+            $q.when(userService.getUserEvents(currentUser.user_id, limit, page))
+                .then(function(event) {
+                    if (ngZconnected._DEBUG)
+                        console.log(event)
+                    vm.eventlist = event.data;
+                    vm.total = event.meta.total;
+                }, function(error) {
+                    if (ngZconnected._DEBUG)
+                        console.log(error);
+                });
+        }
+        vm.paginationChanged(vm.currentUser, vm.limit, vm.page);
+    }]);
+
+angular.module('ja-zconnect-widget-user')
     .controller('JobsearchCtrl', ['currentUser', '$q', 'ngZconnected', 'jobService', 'resourceService', function(currentUser, $q, ngZconnected, jobService, resourceService) {
         var vm = this;
         vm.currentUser = currentUser;
@@ -381,6 +475,75 @@ angular.module('ja-zconnect-widget-user')
                 if (ngZconnected._DEBUG)
                     console.log(error);
             });
+    }]);
+
+angular.module('ja-zconnect-widget-user')
+    .controller('GroupListCtrl', ['currentUser', '$q', 'ngZconnected', 'userService', 'resourceService', function(currentUser, $q, ngZconnected, userService, resourceService) {
+        var vm = this;
+        vm.currentUser = currentUser;
+        vm.groupslist = {};
+        vm.total = 0;
+        vm.limit = 10;
+        vm.page = 1;
+        vm.paginationChanged = function(limit, page) {
+            $q.when(resourceService.groupList.get(limit, page))
+                .then(function(group) {
+                    if (ngZconnected._DEBUG)
+                        console.log(group)
+                    vm.groupslist = group.data;
+                    vm.total = group.total;
+                }, function(error) {
+                    if (ngZconnected._DEBUG)
+                        console.log(error);
+                });
+        }
+        vm.paginationChanged(vm.limit, vm.page);
+    }]);
+
+angular.module('ja-zconnect-widget-user')
+    .controller('EventListCtrl', ['currentUser', '$q', 'ngZconnected', 'userService', 'resourceService', function(currentUser, $q, ngZconnected, userService, resourceService) {
+        var vm = this;
+        vm.currentUser = currentUser;
+        vm.eventlist = {};
+        vm.total = 0;
+        vm.limit = 10;
+        vm.page = 1;
+        vm.paginationChanged = function(limit, page) {
+            $q.when(resourceService.events.get(limit, page))
+                .then(function(event) {
+                    if (ngZconnected._DEBUG)
+                        console.log(event)
+                    vm.eventlist = event.data;
+                    vm.total = event.total;
+                }, function(error) {
+                    if (ngZconnected._DEBUG)
+                        console.log(error);
+                });
+        }
+        vm.paginationChanged(vm.limit, vm.page);
+    }]);
+
+angular.module('ja-zconnect-widget-user')
+    .controller('CompanyListCtrl', ['currentUser', '$q', 'ngZconnected', 'userService', 'resourceService', function(currentUser, $q, ngZconnected, userService, resourceService) {
+        var vm = this;
+        vm.currentUser = currentUser;
+        vm.companyjobs = {};
+        vm.total = 0;
+        vm.limit = 10;
+        vm.page = 1;
+        vm.paginationChanged = function(limit, page) {
+            $q.when(resourceService.companyList.get(limit, page))
+                .then(function(company) {
+                    if (ngZconnected._DEBUG)
+                        console.log(company)
+                    vm.companyjobs = company.data;
+                    vm.total = company.total;
+                }, function(error) {
+                    if (ngZconnected._DEBUG)
+                        console.log(error);
+                });
+        }
+        vm.paginationChanged(vm.limit, vm.page);
     }]);
 
 angular.module('ja-zconnect-widget-user')
