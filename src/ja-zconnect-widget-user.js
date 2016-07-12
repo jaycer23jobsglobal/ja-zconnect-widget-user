@@ -177,5 +177,12 @@ angular.module('ja-zconnect-widget-user', ['adf.provider', 'ngZconnected'])
                 templateUrl: baseTemplatePath + 'event/myevent.html',
                 controller: 'MyEventListCtrl',
                 controllerAs: 'events'
+            }, config))
+            .widget('mymessage', angular.extend({
+                title: 'My Inbox',
+                description: 'my inbox widget',
+                templateUrl: baseTemplatePath + 'message/listmymessage.html',
+                controller: 'MessageCtrl',
+                controllerAs: 'message'
             }, config));
     });

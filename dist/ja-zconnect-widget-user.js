@@ -178,6 +178,13 @@ angular.module('ja-zconnect-widget-user', ['adf.provider', 'ngZconnected'])
                 templateUrl: baseTemplatePath + 'event/myevent.html',
                 controller: 'MyEventListCtrl',
                 controllerAs: 'events'
+            }, config))
+            .widget('mymessage', angular.extend({
+                title: 'My Inbox',
+                description: 'my inbox widget',
+                templateUrl: baseTemplatePath + 'message/listmymessage.html',
+                controller: 'MessageCtrl',
+                controllerAs: 'message'
             }, config));
     }]);
 
@@ -195,6 +202,7 @@ $templateCache.put("{widgetsPath}/ja-zconnect-widget-user/src/templates/jobs/lis
 $templateCache.put("{widgetsPath}/ja-zconnect-widget-user/src/templates/jobs/listjobs.html","<form data-ng-submit=job.search(searchForm) name=searchForm novalidate data-ng-init=\"job.searchJobs(job.limit, job.page)\"><div><input data-ng-model=job.searchkey.search name=search type=text><select data-ng-model=job.searchkey.country data-ng-options=\"country.nicename as country.nicename for country in job.country\"></select><input type=submit value=Search></div></form><div><ul data-ng-if=\"job.total > 0 && job.error != 1\"><li data-ng-repeat=\"jobs in job.searchjobs\"><span><img ng-src={{jobs.image_url}}></span> <span data-ng-bind=jobs.job_title></span> <span data-ng-bind=jobs.job_group.country></span> <span data-ng-bind=jobs.job_group.industry></span> <span data-ng-bind=jobs._applied></span></li><uib-pagination boundary-link-numbers=true class=pagination-sm data-ng-change=\"job.searchJobs(job.limit, job.page)\" max-size=5 ng-model=job.page total-items=job.total></uib-pagination></ul><div data-ng-if=\"job.total==0\"><p class=no_suggestion_p>No Jobs at the moment.</p></div><div data-ng-if=\"job.error==1\"><p class=no_suggestion_p>No Jobs Found.</p></div></div>");
 $templateCache.put("{widgetsPath}/ja-zconnect-widget-user/src/templates/jobs/listrecommended.html","<div><ul><li data-ng-if=\"recommended.total > 0\" data-ng-repeat=\"recommendeds in recommended.appliedjobs\"><span><img ng-src={{recommendeds.job.image_url}}></span> <span data-ng-bind=recommendeds.job.job_title></span> <span data-ng-bind=recommendeds.job.job_group.country></span> <span data-ng-bind=recommendeds.job.job_group.industry></span> <span data-ng-bind=recommendeds.date_applied></span></li><li data-ng-if=\"recommended.total==0\"><p class=no_suggestion_p>No Recommended Jobs at the moment.</p></li></ul><uib-pagination data-ng-if=\"recommended.total > 0\" total-items=recommended.total ng-model=recommended.page max-size=5 class=pagination-sm boundary-link-numbers=true data-ng-change=\"recommended.paginationChanged(recommended.currentUser, recommended.limit, recommended.page)\"></uib-pagination></div>");
 $templateCache.put("{widgetsPath}/ja-zconnect-widget-user/src/templates/jobs/listsaved.html","<div><ul><li data-ng-if=\"saved.total > 0\" data-ng-repeat=\"saveds in saved.savedjobs\"><span><img ng-src={{saveds.image_url}}></span> <span data-ng-bind=saveds.job_title></span> <span data-ng-bind=saveds.job_group.country></span> <span data-ng-bind=saveds.job_group.industry></span> <span data-ng-bind=saveds.job_group.name></span></li><li data-ng-if=\"saved.total==0\"><p class=no_suggestion_p>No Saved Jobs at the moment.</p></li></ul><uib-pagination data-ng-if=\"saved.total > 0\" total-items=saved.total ng-model=saved.page max-size=5 class=pagination-sm boundary-link-numbers=true data-ng-change=\"saved.paginationChanged(saved.currentUser, saved.limit, saved.page)\"></uib-pagination></div>");
+$templateCache.put("{widgetsPath}/ja-zconnect-widget-user/src/templates/message/listmymessage.html","<div><ul><li data-ng-if=\"message.total > 0\" data-ng-repeat=\"mess in message.mymessage\"><div></div><span data-ng-bind=mess.from_name></span> <span data-ng-bind=mess.subject></span></li><li data-ng-if=\"message.total==0\"><p class=no_suggestion_p>No Message at the moment.</p></li></ul><uib-pagination data-ng-if=\"message.total > 0\" total-items=message.total ng-model=message.page max-size=5 class=pagination-sm boundary-link-numbers=true data-ng-change=\"message.paginationChanged(message.limit, message.page)\"></uib-pagination></div>");
 $templateCache.put("{widgetsPath}/ja-zconnect-widget-user/src/templates/profile/account.html","<div>Username : <span data-ng-bind=profile.currentUser.email></span></div><div>Password : <span>******************</span> <a href=#>Edit</a></div>");
 $templateCache.put("{widgetsPath}/ja-zconnect-widget-user/src/templates/profile/contact.html","<div><span data-ng-bind=profile.currentUser.email></span></div><div><span data-ng-bind=profile.currentUser.address.address_1></span> <span data-ng-bind=profile.currentUser.address.address_2></span> <span data-ng-bind=profile.currentUser.address.country></span> <span data-ng-bind=profile.currentUser.address.postal_zip></span></div><div>+<span data-ng-bind=profile.contacts.country_code></span><span data-ng-bind=profile.contacts.phone_number></span></div>");
 $templateCache.put("{widgetsPath}/ja-zconnect-widget-user/src/templates/profile/edit.html","<form role=form><div class=form-group><label for=sample>Sample</label> <input type=text class=form-control id=sample ng-model=config.sample placeholder=\"Enter sample\"></div></form>");
@@ -405,6 +413,29 @@ angular.module('ja-zconnect-widget-user')
                         console.log(event)
                     vm.eventlist = event.data;
                     vm.total = event.meta.total;
+                }, function(error) {
+                    if (ngZconnected._DEBUG)
+                        console.log(error);
+                });
+        }
+        vm.paginationChanged(vm.currentUser, vm.limit, vm.page);
+    }]);
+
+angular.module('ja-zconnect-widget-user')
+    .controller('MessageCtrl', ['currentUser', '$q', 'ngZconnected', 'userService', 'resourceService', function(currentUser, $q, ngZconnected, userService, resourceService) {
+        var vm = this;
+        vm.currentUser = currentUser;
+        vm.mymessage = {};
+        vm.total = 0;
+        vm.limit = 10;
+        vm.page = 1;
+        vm.paginationChanged = function(currentUser, limit, page) {
+            $q.when(userService.getUserMessage(currentUser.user_id, limit, page))
+                .then(function(mess) {
+                    if (ngZconnected._DEBUG)
+                        console.log(mess)
+                    vm.mymessage = mess.data;
+                    vm.total = mess.meta.total;
                 }, function(error) {
                     if (ngZconnected._DEBUG)
                         console.log(error);
