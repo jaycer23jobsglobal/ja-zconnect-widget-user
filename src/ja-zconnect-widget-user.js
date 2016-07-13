@@ -21,23 +21,20 @@ angular.module('ja-zconnect-widget-user', ['adf.provider', 'ngZconnected'])
                 templateUrl: baseTemplatePath + 'profile/view.html',
                 controller: 'ProfileCtrl',
                 controllerAs: 'profile',
-                edit: {
-                    templateUrl: baseTemplatePath + 'profile/edit.html'
-                }
             }, config))
             .widget('strength', angular.extend({
                 title: 'Profile Strength',
                 description: 'profile strength widget',
                 templateUrl: baseTemplatePath + 'profile/strength.html',
-                controller: 'ProfileCtrl',
-                controllerAs: 'profile'
+                controller: 'StrengthCtrl',
+                controllerAs: 'strength'
             }, config))
             .widget('contact', angular.extend({
                 title: 'Contact Information',
                 description: 'contact information widget',
                 templateUrl: baseTemplatePath + 'profile/contact.html',
-                controller: 'ProfileCtrl',
-                controllerAs: 'profile',
+                controller: 'ContactCtrl',
+                controllerAs: 'contact',
                 edit: {
                     templateUrl: baseTemplatePath + 'profile/edit.html'
                 }
@@ -46,8 +43,8 @@ angular.module('ja-zconnect-widget-user', ['adf.provider', 'ngZconnected'])
                 title: 'Profile Total Views',
                 description: 'profile total views widget',
                 templateUrl: baseTemplatePath + 'profile/views.html',
-                controller: 'ProfileCtrl',
-                controllerAs: 'profile',
+                controller: 'ViewsCtrl',
+                controllerAs: 'views',
                 edit: {
                     templateUrl: baseTemplatePath + 'profile/edit.html'
                 }
@@ -56,7 +53,7 @@ angular.module('ja-zconnect-widget-user', ['adf.provider', 'ngZconnected'])
                 title: 'General Account Information',
                 description: 'account information widget',
                 templateUrl: baseTemplatePath + 'profile/account.html',
-                controller: 'ProfileCtrl',
+                controller: 'EmailCtrl',
                 controllerAs: 'profile'
             }, config))
             .widget('cfriend', angular.extend({

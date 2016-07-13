@@ -9,10 +9,11 @@
 <div>
     <ul data-ng-if="job.total > 0 && job.error != 1">
         <li data-ng-repeat="jobs in job.searchjobs">
+        <a data-ng-href="{{jobs.url}}">
             <span>
                 <img ng-src="{{jobs.image_url}}"/>
             </span>
-            <span data-ng-bind="jobs.job_title">
+            <span data-ng-bind="jobs.job_title"></a>
             </span>
             <span data-ng-bind="jobs.job_group.country">
             </span>

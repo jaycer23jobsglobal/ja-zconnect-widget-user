@@ -1,8 +1,9 @@
 <div>
 	<ul>
 		<li data-ng-if="events.total > 0" data-ng-repeat="event in events.eventlist">
+		<a data-ng-href="index.php?option=com_community&view=events&task=viewevent&eventid={{event.id}}">
 			<span><img ng-src="/{{event.avatar}}"></span>
-			<span data-ng-bind="event.title"></span>
+			<span data-ng-bind="event.title"></span></a>
 			<span data-ng-bind="event.location"></span>
 			<span data-ng-bind="event.startdate"></span>
 			<span data-ng-bind="event.enddate"></span>

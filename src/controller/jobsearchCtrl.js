@@ -4,11 +4,11 @@ angular.module('ja-zconnect-widget-user')
         vm.currentUser = currentUser;
         vm.searchjobs = {};
         vm.searchkey = {};
-        vm.search = {};
+        vm.search = "";
         vm.total;
         vm.limit = 10;
         vm.page = 1;
-        vm.country = {};
+        vm.country = "";
         vm.error = 0;
 
         vm.searchJobs = function(limit, page) {

@@ -1,8 +1,9 @@
 <div>
 	<ul>
 		<li data-ng-if="groups.total > 0" data-ng-repeat="gro in groups.groupslist">
+		<a data-ng-href="index.php?option=com_community&view=groups&task=viewgroup&groupid={{gro.id}}">
 			<span><img ng-src="/{{gro.thumb}}"></span>
-			<span data-ng-bind="gro.name"></span>
+			<span data-ng-bind="gro.name"></span></a>
 			<span data-ng-bind="gro.date_created"></span>
 		</li>
 		<li data-ng-if="groups.total==0">
