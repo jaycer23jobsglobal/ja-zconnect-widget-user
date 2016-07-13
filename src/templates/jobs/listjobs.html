@@ -3,7 +3,7 @@
         <input data-ng-model="job.searchkey.search" name="search" placeholder="keyword" type="text" data-ng-required="true"/>
         <span class="error-message" data-ng-show="searchForm.search.$error.required && (searchForm.$submitted || searchForm.search.$touched)">Please specify keyword.</span>
         <select data-ng-model="job.searchkey.country" data-ng-options="country.nicename as country.nicename for country in job.country">
-        <option value="">Please Choose Country</option>
+        <option value="" default>Please Choose Country</option>
         </select>
         <input type="submit" value="Search">
     </div>
