@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('ja-zconnect-widget-user', ['adf.provider', 'ngZconnected'])
+angular.module('ja-zconnect-widget-user', ['adf.provider', 'ngZconnected', 'ngJoms'])
     .config(function(dashboardProvider) {
         var baseTemplatePath = '{widgetsPath}/ja-zconnect-widget-user/src/templates/';
         var config = {

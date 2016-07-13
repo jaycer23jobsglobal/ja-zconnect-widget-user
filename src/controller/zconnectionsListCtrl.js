@@ -1,4 +1,4 @@
-angular.module('ja-zconnect-widget-user').controller('ZconnectionsListCtrl', ['currentUser', '$q', 'ngZconnected', 'userService', function(currentUser, $q, ngZconnected, userService) {
+angular.module('ja-zconnect-widget-user').controller('ZconnectionsListCtrl', ['currentUser', '$q', 'ngZconnected', 'userService', 'ngJoms', function(currentUser, $q, ngZconnected, userService, ngJoms) {
     var vm = this;
     vm.suggestedUsers = [];
     vm.page = 1;

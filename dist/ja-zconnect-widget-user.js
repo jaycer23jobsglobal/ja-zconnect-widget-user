@@ -1,7 +1,7 @@
 (function(window, undefined) {'use strict';
 
 
-angular.module('ja-zconnect-widget-user', ['adf.provider', 'ngZconnected'])
+angular.module('ja-zconnect-widget-user', ['adf.provider', 'ngZconnected', 'ngJoms'])
     .config(["dashboardProvider", function(dashboardProvider) {
         var baseTemplatePath = '{widgetsPath}/ja-zconnect-widget-user/src/templates/';
         var config = {
@@ -217,7 +217,7 @@ $templateCache.put("{widgetsPath}/ja-zconnect-widget-user/src/templates/profile/
 $templateCache.put("{widgetsPath}/ja-zconnect-widget-user/src/templates/znetwork/cfriend.html","<div><center><h1 data-ng-show=znetwork.total data-ng-bind=znetwork.total></h1><center></center></center></div>");
 $templateCache.put("{widgetsPath}/ja-zconnect-widget-user/src/templates/znetwork/friends.html","<div><ul><li data-ng-repeat=\"friend in znetwork.znetwork\"><a data-ng-href={{friend.profile_url}}><span><img ng-src={{friend.avatar}}></span> <span data-ng-bind=\"friend.first_name + \' \' + friend.last_name\"></span></a></li></ul><uib-pagination total-items=znetwork.total ng-model=znetwork.page max-size=5 class=pagination-sm boundary-link-numbers=true data-ng-change=\"znetwork.paginationChanged(znetwork.currentUser, znetwork.limit, znetwork.page)\"></uib-pagination></div>");
 $templateCache.put("{widgetsPath}/ja-zconnect-widget-user/src/templates/znetwork/userlist.html","<div><div class=\"col-sm-12 col-xs-12\"><div class=row><ul class=suggested_contacts><li data-ng-if=\"suggestedUsers.suggestedUsers.length > 0\" data-ng-repeat=\"user in suggestedUsers.suggestedUsers | limitTo: suggestedUsers.limit\"><div class=\"col-sm-12 col-xs-12\"><div class=row><div class=\"col-lg-2 col-sm-2 col-xs-2\"><div class=row><a data-ng-href={{user.profile_url}}><img data-ng-src={{user.avatar}}></a></div></div><div class=\"col-lg-10 col-sm-10 col-xs-10\"><div class=row><a data-ng-href={{user.profile_url}}><p class=contact_name data-ng-bind=\"user.first_name + \' \' + user.last_name\"></p></a><div class=\"col-sm-12 col-xs-12\"><div class=row><a href=javascript: data-ng-click=\"suggestedUsers.addUser(user.user_id, $index)\" class=connect_skip>Connect</a> <a href=javascript: data-ng-click=suggestedUsers.skipUser($index) class=connect_skip>Skip</a></div></div></div></div></div></div></li><li style=\"background:none; padding:0 !important; margin:0; border:none;\" data-ng-if=\"suggestedUsers.suggestedUsers.length==0\"><p class=no_suggestion_p>No suggestions at the moment.</p></li></ul></div></div></div>");}]);
-angular.module('ja-zconnect-widget-user').controller('ZconnectionsListCtrl', ['currentUser', '$q', 'ngZconnected', 'userService', function(currentUser, $q, ngZconnected, userService) {
+angular.module('ja-zconnect-widget-user').controller('ZconnectionsListCtrl', ['currentUser', '$q', 'ngZconnected', 'userService', 'ngJoms', function(currentUser, $q, ngZconnected, userService, ngJoms) {
     var vm = this;
     vm.suggestedUsers = [];
     vm.page = 1;
