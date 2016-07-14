@@ -53,43 +53,122 @@
             var widgetConfig = {
                 height: 225
             };
-            dashboardProvider.structure('1', {
-                rows: [{
-                    columns: [{
-                        styleClass: 'col-md-9',
-                        widgets: [{
-                            type: 'profile',
-                            config: widgetConfig
+            dashboardProvider
+                .structure('1', {
+                    rows: [{
+                        columns: [{
+                            styleClass: 'col-md-1',
+                            widgets: []
+                        }, {
+                            styleClass: 'col-md-2',
+                            widgets: []
+                        }, {
+                            styleClass: 'col-md-3',
+                            widgets: []
+                        }, {
+                            styleClass: 'col-md-4',
+                            widgets: []
+                        }, {
+                            styleClass: 'col-md-2',
+                            widgets: []
                         }]
                     }, {
-                        styleClass: 'col-md-3',
-                        widgets: [{
-                            type: 'strength',
-                            config: widgetConfig
+                        columns: [{
+                            styleClass: 'col-md-6',
+                            widgets: []
+                        }, {
+                            styleClass: 'col-md-2',
+                            widgets: []
+                        }, {
+                            styleClass: 'col-md-4',
+                            widgets: []
                         }]
                     }]
-                }, {
-                    columns: [{
-                        styleClass: 'col-md-6',
-                        widgets: [{
-                            type: 'contact',
-                            config: widgetConfig
+                }).structure('2', {
+                    rows: [{
+                        columns: [{
+                            styleClass: 'col-md-6',
+                            widgets: []
+                        }, {
+                            styleClass: 'col-md-6',
+                            widgets: []
                         }]
                     }, {
-                        styleClass: 'col-md-3',
-                        widgets: [{
-                            type: 'view',
-                            config: widgetConfig
-                        }]
-                    }, {
-                        styleClass: 'col-md-3',
-                        widgets: [{
-                            type: 'account',
-                            config: widgetConfig
+                        columns: [{
+                            styleClass: 'col-md-8',
+                            widgets: []
+                        }, {
+                            styleClass: 'col-md-2',
+                            widgets: []
+                        }, {
+                            styleClass: 'col-md-2',
+                            widgets: []
                         }]
                     }]
-                }]
-            });
+                }).structure('3', {
+                    rows: [{
+                        columns: [{
+                            styleClass: 'col-md-10',
+                            widgets: []
+                        }, {
+                            styleClass: 'col-md-2',
+                            widgets: []
+                        }]
+                    }, {
+                        columns: [{
+                            styleClass: 'col-md-6',
+                            widgets: []
+                        }, {
+                            styleClass: 'col-md-1',
+                            widgets: []
+                        }, {
+                            styleClass: 'col-md-5',
+                            widgets: []
+                        }]
+                    }]
+                }).structure('4', {
+                    rows: [{
+                        columns: [{
+                            styleClass: 'col-md-2',
+                            widgets: []
+                        }, {
+                            styleClass: 'col-md-10',
+                            widgets: []
+                        }]
+                    }, {
+                        columns: [{
+                            styleClass: 'col-md-10',
+                            widgets: []
+                        }, {
+                            styleClass: 'col-md-1',
+                            widgets: []
+                        }, {
+                            styleClass: 'col-md-1',
+                            widgets: []
+                        }]
+                    }]
+                }).structure('5', {
+                    rows: [{
+                        columns: [{
+                            styleClass: 'col-md-7',
+                            widgets: []
+                        }, {
+                            styleClass: 'col-md-5',
+                            widgets: []
+                        }]
+                    }, {
+                        columns: [{
+                            styleClass: 'col-md-6',
+                            widgets: []
+                        }, {
+                            styleClass: 'col-md-2',
+                            widgets: []
+                        }, {
+                            styleClass: 'col-md-4',
+                            widgets: []
+                        }]
+                    }]
+                });
             $urlRouterProvider.otherwise('/');
             $stateProvider
                 .state('home', {
