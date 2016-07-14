@@ -1,3 +1,9 @@
-<div>
-<center><h1 data-ng-show="strength.strength.percentage" data-ng-bind="(strength.strength.percentage*100).toFixed(1) + ' %'"></h1><center>
+<div class="progress ng-cloak">{{ (preciseCurrent || current) | number:1}} %</div>
+<div data-round-progress data-max="config.max" data-current="current" data-color="{{(config.isGradient) ? config.gradient : config.color}}" data-bgcolor="#eaeaea" data-radius="{{config.radius}}" data-stroke="{{config.stroke}}" data-semi="config.semi" data-rounded="config.rounded" data-clockwise="config.clockwise" data-responsive="config.responsive" data-duration="{{config.duration}}" data-animation="{{config.animation}}" data-animation-delay="{{config.delay}}" data-on-render="showPreciseCurrent"></div>
 </div>
+<svg id="profileGradient">
+    <linearGradient id="gradient" x1="0" x2="0" y1="0" y2="1">
+        <stop offset="5%" stop-color="green" />
+        <stop offset="95%" stop-color="gold" />
+    </linearGradient>
+</svg>

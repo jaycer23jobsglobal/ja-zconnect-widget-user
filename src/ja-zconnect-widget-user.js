@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('ja-zconnect-widget-user', ['adf.provider', 'ngZconnected', 'ngJoms'])
+angular.module('ja-zconnect-widget-user', ['adf.provider', 'ngZconnected', 'ngJoms', 'angular-svg-round-progressbar'])
     .config(function(dashboardProvider) {
         var baseTemplatePath = '{widgetsPath}/ja-zconnect-widget-user/src/templates/';
         var config = {
@@ -10,9 +10,9 @@ angular.module('ja-zconnect-widget-user', ['adf.provider', 'ngZconnected', 'ngJo
                 }]
             }
         }
-            var widgetConfig = {
-        height: 225
-    };
+        var widgetConfig = {
+            height: 225
+        };
 
         dashboardProvider
             .widget('profile', angular.extend({

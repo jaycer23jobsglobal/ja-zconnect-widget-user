@@ -1,7 +1,7 @@
 (function(window, undefined) {'use strict';
 
 
-angular.module('ja-zconnect-widget-user', ['adf.provider', 'ngZconnected', 'ngJoms'])
+angular.module('ja-zconnect-widget-user', ['adf.provider', 'ngZconnected', 'ngJoms', 'angular-svg-round-progressbar'])
     .config(["dashboardProvider", function(dashboardProvider) {
         var baseTemplatePath = '{widgetsPath}/ja-zconnect-widget-user/src/templates/';
         var config = {
@@ -11,9 +11,9 @@ angular.module('ja-zconnect-widget-user', ['adf.provider', 'ngZconnected', 'ngJo
                 }]
             }
         }
-            var widgetConfig = {
-        height: 225
-    };
+        var widgetConfig = {
+            height: 225
+        };
 
         dashboardProvider
             .widget('profile', angular.extend({
@@ -211,7 +211,7 @@ $templateCache.put("{widgetsPath}/ja-zconnect-widget-user/src/templates/message/
 $templateCache.put("{widgetsPath}/ja-zconnect-widget-user/src/templates/profile/account.html","<div>Username : <span data-ng-bind=profile.currentUser.email></span></div><div>Password : <span>******************</span> <a href=#>Edit</a></div>");
 $templateCache.put("{widgetsPath}/ja-zconnect-widget-user/src/templates/profile/contact.html","<div><span data-ng-bind=contact.currentUser.email></span></div><div><span data-ng-bind=contact.currentUser.address.address_1></span> <span data-ng-bind=contact.currentUser.address.address_2></span> <span data-ng-bind=contact.currentUser.address.country></span> <span data-ng-bind=contact.currentUser.address.postal_zip></span></div><div>+<span data-ng-bind=contact.contacts.country_code></span><span data-ng-bind=contact.contacts.phone_number></span></div>");
 $templateCache.put("{widgetsPath}/ja-zconnect-widget-user/src/templates/profile/edit.html","<form role=form><div class=form-group><label for=sample>Sample</label> <input type=text class=form-control id=sample ng-model=config.sample placeholder=\"Enter sample\"></div></form>");
-$templateCache.put("{widgetsPath}/ja-zconnect-widget-user/src/templates/profile/strength.html","<div><center><h1 data-ng-show=strength.strength.percentage data-ng-bind=\"(strength.strength.percentage*100).toFixed(1) + \' %\'\"></h1><center></center></center></div>");
+$templateCache.put("{widgetsPath}/ja-zconnect-widget-user/src/templates/profile/strength.html","<div class=\"progress ng-cloak\">{{ (preciseCurrent || current) | number:1}} %</div><div data-round-progress data-max=config.max data-current=current data-color=\"{{(config.isGradient) ? config.gradient : config.color}}\" data-bgcolor=#eaeaea data-radius={{config.radius}} data-stroke={{config.stroke}} data-semi=config.semi data-rounded=config.rounded data-clockwise=config.clockwise data-responsive=config.responsive data-duration={{config.duration}} data-animation={{config.animation}} data-animation-delay={{config.delay}} data-on-render=showPreciseCurrent></div><svg id=profileGradient><lineargradient id=gradient x1=0 x2=0 y1=0 y2=1><stop offset=5% stop-color=green></stop><stop offset=95% stop-color=gold></stop></lineargradient></svg>");
 $templateCache.put("{widgetsPath}/ja-zconnect-widget-user/src/templates/profile/view.html","<ul class=user_dashbord_personal_info><li><h6>Name :</h6><p><span data-ng-bind=profile.currentUser.first_name></span> <span data-ng-bind=profile.currentUser.last_name></span></p></li><li><h6>Professional headline :</h6><p data-ng-bind=profile.jobseekerInfo.quote></p></li><li><h6>Gender :</h6><p data-ng-bind=\"(profile.currentUser.gender===\'M\') ? \'Male\' : \'Female\'\"></p></li><li><h6>Birth date :</h6><p data-ng-bind=profile.currentUser.birthdate></p></li><li><h6>Nationality :</h6><p data-ng-bind=profile.jobseekerInfo.nationality></p></li><li><h6>Civil status :</h6><p data-ng-bind=profile.jobseekerInfo.civil_status></p></li></ul>");
 $templateCache.put("{widgetsPath}/ja-zconnect-widget-user/src/templates/profile/views.html","<div><center><h1 data-ng-show=\"views.total != null\" data-ng-bind=views.total></h1><center></center></center></div>");
 $templateCache.put("{widgetsPath}/ja-zconnect-widget-user/src/templates/znetwork/cfriend.html","<div><center><h1 data-ng-show=znetwork.total data-ng-bind=znetwork.total></h1><center></center></center></div>");
@@ -292,23 +292,77 @@ angular.module('ja-zconnect-widget-user')
 
 
 angular.module('ja-zconnect-widget-user')
-    .controller('StrengthCtrl', ['currentUser', '$q', 'ngZconnected', 'profileService', 'jobService', function(currentUser, $q, ngZconnected, profileService, jobService) {
-        var vm = this;
-        vm.currentUser = currentUser;
-        vm.strength = {};
+    .controller('StrengthCtrl', [
+        'currentUser',
+        '$q',
+        'ngZconnected',
+        'profileService',
+        'jobService',
+        '$scope',
+        '$timeout',
+        '$window',
+        function(currentUser, $q, ngZconnected, profileService, jobService, $scope, $timeout, $window) {
+            $scope.currentUser = currentUser;
+            $scope.current = 0;
+            $scope.preciseCurrent = $scope.current;
+            $scope.config = {
+                max: 100,
+                radius: 50,
+                stroke: 5,
+                semi: false,
+                rounded: false,
+                clockwise: true,
+                responsive: true,
+                duration: 1000,
+                animation: "easeInOutElastic",
+                delay: 500,
+                color: "#45ccce",
+                gradient: "url(#gradient)",
+                isGradient: false
+            };
 
-        $q.when(profileService.profileStrength.get(vm.currentUser.user_id))
-            .then(function(strength){
-                if (ngZconnected._DEBUG)
-                    console.log(strength);
-                vm.strength = strength;
-            }, function(error) {
-                if (ngZconnected._DEBUG)
-                    console.log(error);
+            $scope.$watch(function() {
+                return $scope.current;
+            }, function(newValue) {
+                if (newValue <= 30) {
+                    //red
+                    $scope.config.color = '#ff0000';
+                } else if (newValue >= 31 && newValue <= 59) {
+                    //orange
+                    $scope.config.color = '#ffa500';
+
+                } else if (newValue >= 60 && newValue <= 80) {
+                    //yellow
+                    $scope.config.color = '#9acd32';
+
+                } else {
+                    //green
+                    $scope.config.color = '#008000';
+
+                }
             });
-    }]);
+            var showProfileStrength = function() {
 
+                profileService.profileStrength.get($scope.currentUser.user_id).then(function(resp) {
+                    $scope.current = resp.percentage * 100;
+                }, function(error) {
+                    console.log(error);
+                });
+            };
+            showProfileStrength();
+            $scope.showPreciseCurrent = function(amount) {
+                $timeout(function() {
+                    if (amount <= 0) {
+                        $scope.preciseCurrent = $scope.current;
+                    } else {
+                        var math = $window.Math;
+                        $scope.preciseCurrent = math.min(math.round(amount), $scope.max);
+                    }
+                });
+            };
 
+        }
+    ]);
 
 angular.module('ja-zconnect-widget-user')
     .controller('SavedCtrl', ['currentUser', '$q', 'ngZconnected', 'jobService', function(currentUser, $q, ngZconnected, jobService) {
