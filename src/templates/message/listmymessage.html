@@ -1,17 +1,15 @@
 <div>
-	<ul>
-
-		<li data-ng-if="message.total > 0" data-ng-repeat="mess in message.mymessage">
-		<div>
-	</div>
-			
-	<a data-ng-href="/index.php?option=com_zconjobs&view=profile&Itemid=688&lang=en#/{{message.currentUser.user_id}}"><span data-ng-bind="mess.from_name"></span></a>
-	<a data-ng-href="/index.php?option=com_community&view=inbox&task=read&msgid={{mess.id}}&Itemid=638&lang=en"><span data-ng-bind="mess.subject"></span></a>
-	<span data-ng-bind="mess.posted_on"></span>
-		</li>
-		<li data-ng-if="message.total==0">
+    <ul>
+        <li data-ng-if="message.total > 0" data-ng-repeat="mess in message.mymessage">
+            <div>
+            </div>
+            <a data-ng-href="/index.php?option=com_zconjobs&view=profile&Itemid=688&lang=en#/{{message.currentUser.user_id}}"><span data-ng-bind="mess.from_name"></span></a>
+            <a data-ng-href="/index.php?option=com_community&view=inbox&task=read&msgid={{mess.id}}&Itemid=638&lang=en"><span data-ng-bind="mess.subject"></span></a>
+            <span data-ng-bind="mess.posted_on"></span>
+        </li>
+        <li data-ng-if="message.total==0">
             <p class="no_suggestion_p">No Message at the moment.</p>
         </li>
-	</ul>
-	<uib-pagination data-ng-if="message.total > 0" total-items="message.total" ng-model="message.page" max-size="5" class="pagination-sm" boundary-link-numbers="true" data-ng-change="message.paginationChanged(message.limit, message.page)"></uib-pagination>
+    </ul>
+    <uib-pagination data-ng-if="message.total > 0" total-items="message.total" ng-model="message.page" max-size="5" class="pagination-sm" boundary-link-numbers="true" data-ng-change="message.paginationChanged(message.limit, message.page)"></uib-pagination>
 </div>
