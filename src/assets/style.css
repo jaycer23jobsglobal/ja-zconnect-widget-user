@@ -87,3 +87,89 @@ svg#profileGradient {
     margin: 0 auto;
     width: 65%;
 }
+
+.suggested_contacts {
+    float: left;
+    padding: 0px;
+    width: 100%;
+    margin: 0 !important;
+}
+
+.suggested_contacts li {
+    border-bottom: 1px solid #f0f0f0;
+    float: left;
+    list-style-type: none;
+    padding: 7px 0 !important;
+    width: 100%;
+}
+
+.suggested_contacts li a {
+    float: left;
+    width: auto;
+}
+
+.suggested_contacts li a img {
+    border: 1px solid #ddd;
+    border-radius: 3px;
+}
+
+.suggested_contacts li:first-child {
+    padding-top: 0;
+}
+
+.suggested_contacts li:last-child {
+    border-bottom: medium none;
+    padding-bottom: 0;
+}
+
+.contact_name {
+    color: #555;
+    float: left;
+    font-size: 13px;
+    letter-spacing: 0.3px;
+    line-height: 17px;
+    margin: 0px 0px 0;
+    padding-left: 10px;
+    width: 100%;
+}
+
+.contact_company {
+    color: #666;
+    float: left;
+    font-size: 11px;
+    line-height: 17px;
+    margin: 0 !important;
+    padding-left: 10px;
+}
+
+.connect_skip {
+    color: #33a5ff;
+    float: left;
+    font-size: 12px;
+    line-height: 11px;
+    padding-left: 10px;
+    margin-top: 5px;
+}
+
+.suggested_contacts li.ng-enter {
+    -webkit-animation: fadeInLeft .5s;
+    -moz-animation: fadeInLeft .5s;
+    -ms-animation: fadeInLeft .5s;
+    animation: fadeInLeft .5s;
+}
+
+.suggested_contacts li.ng-leave {
+    -webkit-animation: fadeOutRight .5s;
+    -moz-animation: fadeOutRight .5s;
+    -ms-animation: fadeOutRight .5s;
+    animation: fadeOutRight .5s;
+}
+
+.no_suggestion_p {
+    color: #777;
+    float: left;
+    font-size: 13px;
+    margin: 0;
+    text-align: center;
+    width: 100%;
+}
