@@ -3,9 +3,24 @@
         <div class="row">
             <ul class="suggested_contacts">
                 <li data-ng-repeat="friend in znetwork.znetwork">
-                    <a data-ng-href="{{friend.profile_url}}">
-                        <span><img ng-src="{{friend.avatar}}"></span>
-                        <span data-ng-bind="friend.first_name + ' ' + friend.last_name"></span></a>
+                    <div class="col-lg-12 col-sm-12 col-xs-12">
+                        <div class="row">
+                            <div class="col-lg-2">
+                                <div class="row">
+                                    <a data-ng-href="{{friend.profile_url}}">
+                                        <img ng-src="{{friend.avatar}}">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-lg-10">
+                                <div class="row">
+                                    <a data-ng-href="{{friend.profile_url}}">
+                                        <p class="contact_name" data-ng-bind="friend.first_name + ' ' + friend.last_name"></p>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </li>
             </ul>
             <uib-pagination total-items="znetwork.total" ng-model="znetwork.page" max-size="5" class="pagination-sm" boundary-link-numbers="true" data-ng-change="znetwork.paginationChanged(znetwork.currentUser, znetwork.limit, znetwork.page)"></uib-pagination>

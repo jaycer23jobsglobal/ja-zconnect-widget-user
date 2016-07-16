@@ -111,6 +111,7 @@ svg#profileGradient {
 .suggested_contacts li a img {
     border: 1px solid #ddd;
     border-radius: 3px;
+    width: 100%;
 }
 
 .suggested_contacts li:first-child {
