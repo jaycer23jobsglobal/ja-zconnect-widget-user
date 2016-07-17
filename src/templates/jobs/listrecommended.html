@@ -2,7 +2,7 @@
 	<ul>
 		<li data-ng-if="recommended.total > 0" data-ng-repeat="recommendeds in recommended.appliedjobs">
 		
-			<span><a data-ng-href="{{recommendeds.url}}"><img ng-src="{{recommendeds.job.image_url}}"></a></span>
+			<span><a data-ng-href="{{recommendeds.url}}"><img ng-src="/{{recommendeds.job.image_url}}"></a></span>
 			<a data-ng-href="{{recommendeds.url}}"><span data-ng-bind="recommendeds.job.job_title"></span></a>
 			<span data-ng-bind="recommendeds.job.job_group.country"></span>
 			<span data-ng-bind="recommendeds.job.job_group.industry"></span>

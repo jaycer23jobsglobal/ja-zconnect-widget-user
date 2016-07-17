@@ -56,6 +56,7 @@ angular.module('ja-zconnect-widget-user')
                 if (ngZconnected._DEBUG)
                     console.log(country)
                 vm.country = country;
+                vm.country.unshift({nicename : "Please Select Country"});
             }, function(error) {
                 if (ngZconnected._DEBUG)
                     console.log(error);

@@ -3,7 +3,6 @@
         <input data-ng-model="job.searchkey.search" name="search" placeholder="keyword" type="text" data-ng-required="true"/>
         <span class="error-message" data-ng-show="searchForm.search.$error.required && (searchForm.$submitted || searchForm.search.$touched)">Please specify keyword.</span>
         <select data-ng-model="job.searchkey.country" data-ng-options="country.nicename as country.nicename for country in job.country">
-        <option value="" default>Please Choose Country</option>
         </select>
         <input type="submit" value="Search">
     </div>
@@ -13,7 +12,7 @@
         <li data-ng-repeat="jobs in job.searchjobs">
         <a data-ng-href="{{jobs.url}}">
             <span>
-                <img ng-src="{{jobs.image_url}}"/>
+                <img ng-src="/{{jobs.image_url}}"/>
             </span>
             <span data-ng-bind="jobs.job_title"></a>
             </span>

@@ -2,7 +2,7 @@
 	<ul>
 		<li data-ng-if="applied.total > 0" data-ng-repeat="applieds in applied.appliedjobs">
 			<a data-ng-href="{{applieds.job.url}}">
-			<span><img ng-src="{{applieds.job.image_url}}">
+			<span><img ng-src="/{{applieds.job.image_url}}">
 			<span data-ng-bind="applieds.job.job_title"></span></a>
 			<span data-ng-bind="applieds.job.job_group.country"></span>
 			<span data-ng-bind="applieds.job.job_group.industry"></span>
