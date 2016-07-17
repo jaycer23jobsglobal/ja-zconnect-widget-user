@@ -2,7 +2,7 @@
 	<ul>
 		<li data-ng-if="saved.total > 0" data-ng-repeat="saveds in saved.savedjobs">
 		<a data-ng-href="{{saveds.url}}">
-			<span><img ng-src="/{{saveds.image_url}}"></span>
+			<span><img ng-src="/{{saveds.job_group.company.avatar}}"></span>
 			<span data-ng-bind="saveds.job_title"></span></a>
 			<span data-ng-bind="saveds.job_group.country"></span>
 			<span data-ng-bind="saveds.job_group.industry"></span>

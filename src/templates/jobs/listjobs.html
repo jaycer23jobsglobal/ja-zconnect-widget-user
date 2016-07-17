@@ -12,7 +12,7 @@
         <li data-ng-repeat="jobs in job.searchjobs">
         <a data-ng-href="{{jobs.url}}">
             <span>
-                <img ng-src="/{{jobs.image_url}}"/>
+                <img ng-src="/{{jobs.job_group.company.avatar}}"/>
             </span>
             <span data-ng-bind="jobs.job_title"></a>
             </span>
