@@ -4,7 +4,7 @@ angular.module('ja-zconnect-widget-user')
         vm.currentUser = currentUser;
         vm.groupslist = {};
         vm.total = 0;
-        vm.limit = 10;
+        vm.limit = 5;
         vm.page = 1;
         vm.paginationChanged = function(limit, page) {
             $q.when(resourceService.groupList.get(limit, page))

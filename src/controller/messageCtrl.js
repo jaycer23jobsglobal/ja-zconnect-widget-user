@@ -4,7 +4,7 @@ angular.module('ja-zconnect-widget-user')
         vm.currentUser = currentUser;
         vm.mymessage = {};
         vm.total;
-        vm.limit = 10;
+        vm.limit = 5;
         vm.page = 1;
         vm.paginationChanged = function(currentUser, limit, page) {
             $q.when(userService.getUserMessage(currentUser.user_id, limit, page))
