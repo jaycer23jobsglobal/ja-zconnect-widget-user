@@ -11,5 +11,5 @@
             <p class="no_suggestion_p">No Message at the moment.</p>
         </li>
     </ul>
-    <uib-pagination data-ng-if="message.total > 0" total-items="message.total" ng-model="message.page" max-size="5" class="pagination-sm" boundary-link-numbers="true" data-ng-change="message.paginationChanged(message.limit, message.page)"></uib-pagination>
+    <uib-pagination data-ng-if="message.total > 0" items-per-page="message.limit" total-items="message.total" ng-model="message.page" max-size="5" class="pagination-sm" boundary-link-numbers="true" data-ng-change="message.paginationChanged(message.limit, message.page)"></uib-pagination>
 </div>

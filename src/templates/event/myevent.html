@@ -12,5 +12,5 @@
             <p class="no_suggestion_p">No event at the moment.</p>
         </li>
 	</ul>
-	<uib-pagination data-ng-if="events.total > 0" total-items="events.total" ng-model="events.page" max-size="5" class="pagination-sm" boundary-link-numbers="true" data-ng-change="events.paginationChanged(events.limit, events.page)"></uib-pagination>
+	<uib-pagination data-ng-if="events.total > 0" items-per-page="events.limit" total-items="events.total" ng-model="events.page" max-size="5" class="pagination-sm" boundary-link-numbers="true" data-ng-change="events.paginationChanged(events.limit, events.page)"></uib-pagination>
 </div>

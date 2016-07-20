@@ -12,5 +12,5 @@
             <p class="no_suggestion_p">No Saved Jobs at the moment.</p>
         </li>
 	</ul>
-	<uib-pagination data-ng-if="saved.total > 0" total-items="saved.total" ng-model="saved.page" max-size="5" class="pagination-sm" boundary-link-numbers="true" data-ng-change="saved.paginationChanged(saved.currentUser, saved.limit, saved.page)"></uib-pagination>
+	<uib-pagination data-ng-if="saved.total > 0" items-per-page="saved.limit" total-items="saved.total" ng-model="saved.page" max-size="5" class="pagination-sm" boundary-link-numbers="true" data-ng-change="saved.paginationChanged(saved.currentUser, saved.limit, saved.page)"></uib-pagination>
 </div>

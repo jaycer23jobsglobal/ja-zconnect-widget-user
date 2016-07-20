@@ -12,5 +12,5 @@
             <p class="no_suggestion_p">No company at the moment.</p>
         </li>
 	</ul>
-	<uib-pagination data-ng-if="company.total > 0" total-items="company.total" ng-model="company.page" max-size="5" class="pagination-sm" boundary-link-numbers="true" data-ng-change="company.paginationChanged(company.limit, company.page)"></uib-pagination>
+	<uib-pagination data-ng-if="company.total > 0" items-per-page="company.limit" total-items="company.total" ng-model="company.page" max-size="5" class="pagination-sm" boundary-link-numbers="true" data-ng-change="company.paginationChanged(company.limit, company.page)"></uib-pagination>
 </div>

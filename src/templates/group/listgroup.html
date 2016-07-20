@@ -10,5 +10,5 @@
             <p class="no_suggestion_p">No group at the moment.</p>
         </li>
 	</ul>
-	<uib-pagination data-ng-if="groups.total > 0" total-items="groups.total" ng-model="groups.page" max-size="5" class="pagination-sm" boundary-link-numbers="true" data-ng-change="groups.paginationChanged(groups.limit, groups.page)"></uib-pagination>
+	<uib-pagination data-ng-if="groups.total > 0" items-per-page="groups.limit" total-items="groups.total" ng-model="groups.page" max-size="5" class="pagination-sm" boundary-link-numbers="true" data-ng-change="groups.paginationChanged(groups.limit, groups.page)"></uib-pagination>
 </div>

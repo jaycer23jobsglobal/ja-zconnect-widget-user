@@ -23,7 +23,7 @@
             <span data-ng-bind="jobs._applied">
             </span>
         </li>
-        <uib-pagination boundary-link-numbers="true" class="pagination-sm" data-ng-change="job.searchJobs(job.limit, job.page)" max-size="5" ng-model="job.page" total-items="job.total">
+        <uib-pagination boundary-link-numbers="true" items-per-page="job.limit" class="pagination-sm" data-ng-change="job.searchJobs(job.limit, job.page)" max-size="5" ng-model="job.page" total-items="job.total">
         </uib-pagination>
     </ul>
     <div data-ng-if="job.total==0">
