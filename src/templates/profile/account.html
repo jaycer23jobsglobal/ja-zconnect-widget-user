@@ -3,12 +3,29 @@
         <h6>Username :</h6>
         <p data-ng-bind="profile.currentUser.email"></p>
     </li>
-    <li>
+    <li id="password">
         <h6>
 			Password :
 		</h6>
         <p>
             ******************
         </p>
+        <p><a href="javascript:" data-ng-click="profile.showInputPassword()">Edit Password</a></p>
     </li>
+    <form name="passwordForm" data-ng-submit="profile.editPassword(passwordForm)" novalidate id="inputPassword" hidden>
+        <p>Current Password : <input type='password' name="current_password" data-ng-model="profile.password.current_password" data-ng-required="true"></p>
+        <span class="error-message" data-ng-show="passwordForm.current_password.$error.required && (passwordForm.$submitted || passwordForm.current_password.$touched)">Please fill-up current password.</span>
+        <span class="error-message" data-ng-show="profile.password.current_password.length < 8">Invalid current password.</span>
+        
+        <p>New Password : <input type='password' name="new_password" data-ng-model="profile.password.new_password" data-ng-required="true"></p>
+        <span class="error-message" data-ng-show="passwordForm.new_password.$error.required && (passwordForm.$submitted || passwordForm.new_password.$touched)">Please fill-up new password.</span>
+        <span class="error-message" data-ng-show="profile.password.new_password.length < 8">Password must be 8 above.</span>
+        
+        <p>Re-type Password : <input type='password' name="retype_password" data-ng-model="profile.password.retype_password" data-ng-required="true"></p>
+        <span class="error-message" data-ng-show="passwordForm.retype_password.$error.required && (passwordForm.$submitted || passwordForm.retype_password.$touched)">Please fill-up re-type password.</span>
+        <span class="error-message" data-ng-show="profile.password.retype_password.length < 8">Password must be 8 above.</span>
+        <span class="error-message" data-ng-show="profile.not_valid != null">{{profile.not_valid}}</span>
+        <p><input type="submit" value="Submit"></p>
+        <p><button data-ng-click="profile.cancelEditPassword()">Cancel</button></p>
+    </form>
 </ul>
